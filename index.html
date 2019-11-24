@@ -20,28 +20,31 @@
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title text-dark">Try Again</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <!-- <form> -->
+              <button type="btn" class="button" id="modal-close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            <!-- </form> -->
           </div>
           <div class="modal-body text-dark py-1">
             <p>Please enter a valid river or waterfall that has not previously been entered.</p>
           </div>
           <div class="modal-footer py-1">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary close-modal" data-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
     
     <form>
-        Add a river or waterfall:
-        <br>
-        <input type="text" name="waterfeature" id="water-input">
-        <br><br>
-        <input type="submit" class="button" id="submit-button" value="Submit">
+      <br>
+      Add a river or waterfall:
+      <br>
+      <input type="text" name="waterfeature" id="water-input">
+      <br><br>
+      <input type="submit" class="button" id="submit-button" value="Submit">
     </form>
-   
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <script type="text/javascript" src="assets/javascript/gif.js"></script>
 </body>
 </html>

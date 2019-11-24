@@ -36,30 +36,38 @@
 
 
 let rivers = ["Upper Blackwater River", "Colorado River", "Arkansas River", "Stikine River"];
+let gifdRivers = [];
 let searchParam;
 let apiKey = "a6Xd0NCgmNJHxMbKQdk1XP5N0YZkHBrv";
 
 
 
 function displayGifs() {
-    let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + 
-        searchParam + "&api_key=" + apiKey + "&limit=10";
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function(response){
-        console.log(response);
-        // ajaxResponse = response;
-        // startGame();
-    })
+    if (!gifdRivers.includes(searchParam)) {
+
+        let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + 
+            searchParam + "&api_key=" + apiKey + "&limit=10";
+        $("#button, .button").prop("disabled", true);
+        
+        // $(".button").prop("disabled", true);
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function(response){
+            console.log(response);
+            // ajaxResponse = response;
+            // startGame();
+        })
+    }
 }
 
 function createButtons() {
-    $("#water-input").empty();
+    $("#water-buttons").empty(); //remove all the existing buttons to repopoulate again from scratch
     $.each(rivers, function(i, river) {
         let btn = $("<button>");
-        btn.addClass("river btn btn-success btn-sm ml-1 mt-1");
-        btn.attr("data-name", river);
+        btn.addClass("btn btn-success btn-sm ml-1 mt-1");
+        btn.attr("river-name", river);
+        btn.attr("id", "button")
         btn.text(river);
         $("#water-buttons").append(btn)
     })
@@ -75,29 +83,48 @@ function convertTitleCase(string) {
     return stringToTitle.join(" ");
 }
 
-$(".button").on("click", function(event) {
+//must use a document listen event because it listens for dynamically created buttons
+//where $(".button").on("click", function(event){}) only listens for buttons that were 
+//available prior to any code running
+$(document).on("click", ".button, #button", function(event) {
     event.preventDefault();
     if ($(this).attr("id") === "submit-button") {
         let river = $("#water-input").val().trim();
-        let riverTitle = convertTitleCase(river);
-        if (riverTitle === "" || rivers.includes(riverTitle)) {
-            $("#modal-validate").modal("show");
+        $("#water-input").val(""); //clear the input box ready for the next entry
+        if (river !== "") {
+            let riverTitle = convertTitleCase(river);
+            if (rivers.includes(riverTitle)) {
+                $("#modal-validate").modal("show");
+            }
+            else {
+                rivers.push(riverTitle);
+                createButtons();
+            }
         }
         else {
-            rivers.push(river);
-            createButtons();
+            $("#modal-validate").modal("show");
         }
     }
+    else if ($(this).attr(".close-modal")) {
+        //pass
+    }
     else {
-        searchParam = $(this).attr("data-name");
+        searchParam = $(this).attr("river-name");
         console.log(searchParam);
         displayGifs();
-    }
-})
+    }   
+})   
+
+//must use a document listen event because it listens for dynamically created buttons
+//$(".button").on("click", function(event){}) only listens for buttons that were available prior to any code running
+// $(document).on("click", "#button", function(event) {
+//     searchParam = $(this).attr("river-name");
+//     console.log(searchParam);
+//     displayGifs();
+// })
 
 
-
-//display the original buttons
+//display the original buttons from the rivers array
 createButtons();
 
 // Giphy key a6Xd0NCgmNJHxMbKQdk1XP5N0YZkHBrv
