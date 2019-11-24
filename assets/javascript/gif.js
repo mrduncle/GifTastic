@@ -40,23 +40,39 @@ let gifdRivers = [];
 let searchParam;
 let apiKey = "a6Xd0NCgmNJHxMbKQdk1XP5N0YZkHBrv";
 
+function displayGifs(gifObject) {
+    let gifArray = gifObject.data;
+    let gifID = searchParam.join("-");
+    $("#river-gifs-container").append("<h3>" + searchParam + "</h3>");
+    $("#river-gifs-container").append("<div class='row'></div>");
+    
+    $.each(gifArray, function(i, gif){
+        $("#river-gifs-container").append("<div class='col-md-1' id=" + gifID + "><div>");
+        // $("#" + gifID).append("<button url='" + gif + ".images.downsized_large.url"
+        console.log(gif.images.downsized_large.url);
+        $("#" + gifID).append("<img id='" + gifID + "-" + i + "' src='" + gif.images.downsized_large.url + "'>");
+        // <img src="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-still="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-animate="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" data-state="still" class="gif"></img>
+    })
+    $("#river-gifs-container")
+    let btn = $("<button>");
+    
+}
 
 
-function displayGifs() {
+function getGifs() {
     if (!gifdRivers.includes(searchParam)) {
-
+        gifdRivers.push(searchParam);
         let queryURL = "https://api.giphy.com/v1/gifs/search?q=" + 
             searchParam + "&api_key=" + apiKey + "&limit=10";
         $("#button, .button").prop("disabled", true);
-        
-        // $(".button").prop("disabled", true);
         $.ajax({
             url: queryURL,
             method: "GET"
         }).then(function(response){
             console.log(response);
-            // ajaxResponse = response;
-            // startGame();
+            displayGifs(response);
+            $("#button, .button").prop("disabled", false);
+
         })
     }
 }
@@ -111,7 +127,7 @@ $(document).on("click", ".button, #button", function(event) {
     else {
         searchParam = $(this).attr("river-name");
         console.log(searchParam);
-        displayGifs();
+        getGifs();
     }   
 })   
 
