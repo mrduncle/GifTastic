@@ -1,21 +1,26 @@
 body {
-    background-image: ""; /*look up photos of the Hokitika*/
+    position: relative;
+    background: url("../images/GatesofArgonath.jpg") no-repeat center center fixed;
+    background-size: cover;
 }
 
 h1 {
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     font-size: 75px;
-    color:turquoise;
     text-align: center;
+    color:turquoise;
 }
+    
 
 h3 {
     margin-left: 20px;
     margin-top: 30px;
+    color: white;
 }
 
 form {
     margin-left: 20px;
+    color: white;
 }
 
 #water-buttons {

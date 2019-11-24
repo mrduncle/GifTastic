@@ -1,73 +1,32 @@
 
 //@ts-check
-//get new button and label
-// function createButton() {
-    
-// }
 
-
-
-//deal with all page button clicks to either create a new topic or display existing topics
-// $(".btn").on("click", function() {  //this function monitors all button clicks for
-    //the program: start, answers selected
-// console.log($(this).attr("class"));    
-// if ($(this).attr("id") === "start") {  //if the start button was clicked 
-// $(this).css("display", "none");    //hide the start button
-// getQuestionData(0);                //initiate the program
-// }
-// else if ($(this).attr("class").includes("answer")) {  //if an answer button was clicked
-// let userAnswer = $(this).text();
-// assessAnswer(userAnswer);
-// }
-// else if ($(this).attr("id") === "again") {  //if the user opted to replay the game again
-// questionsAsked = 0;
-// correctAnswers = 0;
-// incorrectAnswers = 0;
-// $("#results").css("display", "none");
-// $("#again").css("display", "none"); //hide the buttons
-// $("#quit").css("display", "none");
-// location.reload(true); //reload the window from the server
-// }
-// else if ($(this).attr("id") === "quit") {  //if the user opted to quit the game
-// window.close();
-// }
-// })
-
-
-
-let rivers = ["Zambezi River", "Colorado River", "Grand Inga", "Yellowstone River"];
+let rivers = ["Zambezi River", "Colorado River", "Angel Falls", "Yellowstone River"];
 let gifdRivers = [];
 let searchParam;
 let apiKey = "a6Xd0NCgmNJHxMbKQdk1XP5N0YZkHBrv";
 
 function displayGifs(gifObject) {
-    let currentRow = gifdRivers.length - 1;
     let gifArray = gifObject.data;
     let gifRiver = searchParam.split(" ");
+    let rowNo;
     gifRiver = gifRiver.join("-");
-    $("#river-gifs-container").append("<h3>" + searchParam + "</h3>");
-    $("#river-gifs-container").append("<div class='row' id='row" + currentRow + "'></div>");
+    $("#river-gifs-container").append("<h3 style='color:white'>" + searchParam + "</h3>");
     
+    
+    //create a new row for each river
     $.each(gifArray, function(i, gif){
         let gifID = gifRiver + i;
-        $("#row" + currentRow).append("<div class='col-md-1 ml-1' id=" + gifID +"></div>");
-        // $("#" + gifID).append("<button url='" + gif + ".images.downsized_large.url"
-        console.log(gif.images.downsized_large.url);
+        if ((i) % 3 === 0) {
+            rowNo = Math.floor(i / 3);
+            $("#river-gifs-container").append("<div class='row justify-content-start' id='row-" + rowNo + "'></div>");
+        }
+        $("#row-" + rowNo).append("<div class='col-md-4 pl-1 mt-1' id=" + gifID +"></div>");
         let gifURL = gif.images.downsized_large.url;
-        console.log("<img id='" + gifID + "' src='" + gifURL + 
-        "' data-still='" + gifURL + "' data-animate='" + gifURL + 
-        "' data-state='still' class='gif'");
         $("#" + gifID).append("<img id='" + gifID + "' src='" + gifURL + 
             "' data-still='" + gifURL + "' data-animate='" + gifURL + 
             "' data-state='still' class='gif'>");
-        // <img src="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" 
-        //     data-still="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif"
-        //     data-animate="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" 
-        //     data-state="still" class="gif">
     })
-    // $("#river-gifs-container")
-    // let btn = $("<button>");
-    
 }
 
 
@@ -143,16 +102,5 @@ $(document).on("click", ".button, #button", function(event) {
     }   
 })   
 
-//must use a document listen event because it listens for dynamically created buttons
-//$(".button").on("click", function(event){}) only listens for buttons that were available prior to any code running
-// $(document).on("click", "#button", function(event) {
-//     searchParam = $(this).attr("river-name");
-//     console.log(searchParam);
-//     displayGifs();
-// })
-
-
 //display the original buttons from the rivers array
 createButtons();
-
-// Giphy key a6Xd0NCgmNJHxMbKQdk1XP5N0YZkHBrv
