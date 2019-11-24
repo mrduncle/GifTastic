@@ -9,10 +9,19 @@ h1 {
     text-align: center;
 }
 
+h3 {
+    margin-left: 20px;
+    margin-top: 30px;
+}
+
 form {
     margin-left: 20px;
 }
 
 #water-buttons {
     margin-left: 16px;
+}
+
+img {
+    height: 140px;
 }

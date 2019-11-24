@@ -35,26 +35,38 @@
 
 
 
-let rivers = ["Upper Blackwater River", "Colorado River", "Arkansas River", "Stikine River"];
+let rivers = ["Zambezi River", "Colorado River", "Grand Inga", "Yellowstone River"];
 let gifdRivers = [];
 let searchParam;
 let apiKey = "a6Xd0NCgmNJHxMbKQdk1XP5N0YZkHBrv";
 
 function displayGifs(gifObject) {
+    let currentRow = gifdRivers.length - 1;
     let gifArray = gifObject.data;
-    let gifID = searchParam.join("-");
+    let gifRiver = searchParam.split(" ");
+    gifRiver = gifRiver.join("-");
     $("#river-gifs-container").append("<h3>" + searchParam + "</h3>");
-    $("#river-gifs-container").append("<div class='row'></div>");
+    $("#river-gifs-container").append("<div class='row' id='row" + currentRow + "'></div>");
     
     $.each(gifArray, function(i, gif){
-        $("#river-gifs-container").append("<div class='col-md-1' id=" + gifID + "><div>");
+        let gifID = gifRiver + i;
+        $("#row" + currentRow).append("<div class='col-md-1 ml-1' id=" + gifID +"></div>");
         // $("#" + gifID).append("<button url='" + gif + ".images.downsized_large.url"
         console.log(gif.images.downsized_large.url);
-        $("#" + gifID).append("<img id='" + gifID + "-" + i + "' src='" + gif.images.downsized_large.url + "'>");
-        // <img src="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-still="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" data-animate="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" data-state="still" class="gif"></img>
+        let gifURL = gif.images.downsized_large.url;
+        console.log("<img id='" + gifID + "' src='" + gifURL + 
+        "' data-still='" + gifURL + "' data-animate='" + gifURL + 
+        "' data-state='still' class='gif'");
+        $("#" + gifID).append("<img id='" + gifID + "' src='" + gifURL + 
+            "' data-still='" + gifURL + "' data-animate='" + gifURL + 
+            "' data-state='still' class='gif'>");
+        // <img src="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif" 
+        //     data-still="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200_s.gif"
+        //     data-animate="https://media1.giphy.com/media/3o85xkQpyMlnBkpB9C/200.gif" 
+        //     data-state="still" class="gif">
     })
-    $("#river-gifs-container")
-    let btn = $("<button>");
+    // $("#river-gifs-container")
+    // let btn = $("<button>");
     
 }
 
