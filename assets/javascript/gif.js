@@ -13,7 +13,6 @@ function displayGifs(gifObject) {
     gifRiver = gifRiver.join("-");
     $("#river-gifs-container").append("<h3 style='color:white'>" + searchParam + "</h3>");
     
-    
     //create a new row for each river
     $.each(gifArray, function(i, gif){
         let gifID = gifRiver + i;
@@ -22,13 +21,13 @@ function displayGifs(gifObject) {
             $("#river-gifs-container").append("<div class='row justify-content-start' id='row-" + rowNo + "'></div>");
         }
         $("#row-" + rowNo).append("<div class='col-md-4 pl-1 mt-1' id=" + gifID +"></div>");
+        let gifStill = gif.images.downsized_still.url.substring(0, gif.images.downsized_still.url.indexOf("?"));
         let gifURL = gif.images.downsized_large.url;
-        $("#" + gifID).append("<img id='" + gifID + "' src='" + gifURL + 
-            "' data-still='" + gifURL + "' data-animate='" + gifURL + 
+        $("#" + gifID).append("<img id='" + gifID + "' src='" + gifStill + 
+            "' data-still='" + gifStill + "' data-animate='" + gifURL + 
             "' data-state='still' class='gif'>");
     })
 }
-
 
 function getGifs() {
     if (!gifdRivers.includes(searchParam)) {
