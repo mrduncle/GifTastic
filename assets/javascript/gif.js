@@ -6,6 +6,16 @@ let gifdRivers = [];
 let searchParam;
 let apiKey = "a6Xd0NCgmNJHxMbKQdk1XP5N0YZkHBrv";
 
+$("#river-gifs-container").on("click", ".gif", function() {
+    let changeStill;
+    $(".gif").attr("data-state", "still"); //turn the data-state property for gifs to still
+    $(".gif").each(function() {
+        $(this).attr("src", $(this).attr("data-still")); //turn the src property for all gifs to the inanimate gif
+    })
+    $(this).attr("data-state", "animate"); //turn the data-state property for the clicked element to animate
+    $(this).attr("src", $(this).attr("data-animate"));
+})
+
 function displayGifs(gifObject) {
     let gifArray = gifObject.data;
     let gifRiver = searchParam.split(" ");
@@ -25,7 +35,7 @@ function displayGifs(gifObject) {
         let gifURL = gif.images.downsized_large.url;
         $("#" + gifID).append("<img id='" + gifID + "' src='" + gifStill + 
             "' data-still='" + gifStill + "' data-animate='" + gifURL + 
-            "' data-state='still' class='gif'>");
+            "' data-state='animate' class='gif'>");
     })
 }
 
