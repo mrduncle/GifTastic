@@ -36,11 +36,6 @@ function displayGifs(gifObject) {
 function getGifs() {
     if (!gifdRivers.includes(searchParam)) {  //check if the specific river's button has been pushed previously
         gifdRivers.push(searchParam);
-        let riverName = searchParam.split(" ");
-        if (riverName.length === 2) { //try reversing the name of the river to get better results
-            searchParam = riverName[1] + "-" + riverName[0];
-        }
-        console.log(searchParam);
         let queryURL = "https://api.giphy.com/v1/gifs/search?q='" + 
             searchParam + "'&api_key=" + apiKey + "&limit=10";
         $("#button, .button").prop("disabled", true); //disable all buttons while the api is returning information
@@ -102,7 +97,7 @@ $(document).on("click", ".button, #button", function(event) {
     else if ($(this).attr(".close-modal")) {
         //pass
     }
-    //if the button pushed was not to close the modal, submit button or 
+    //if the button pushed was not to close the modal, submit button then it was to retrieve gifs
     else {
         searchParam = $(this).attr("river-name");
         console.log(searchParam);
@@ -112,12 +107,7 @@ $(document).on("click", ".button, #button", function(event) {
 
 //change gifs between still and animated
 $("#river-gifs-container").on("click", ".gif", function() {
-    console.log($(this.attribute));
-    // $(this).each(function(key, value) {
-    //     console.log(key + ": " + value);
-    // })
-    // console.log($(this).attr("data-state"));
-    console.log($(this).attr("src"));
+    // console.log($(this).attr("src"));
     if ($(this).attr("data-state") === "animate") {
         $(this).attr("data-state", "still"); //turn the data-state property for gifs to still
         $(this).attr("src", $(this).attr("data-still"))
