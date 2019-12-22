@@ -26,27 +26,20 @@ function displayGifs(gifObject) {
             rowNo = Math.floor(i / 3);
             $("#river-gifs-container").append("<div class='row justify-content-start' id='row-" + gifdNo + rowNo + "'></div>");
         }
-        // $("#row-" + gifdNo + rowNo).append("<div class='col-md-4 pl-1 mt-1' id=" + gifID +"></div>");
-        //append a card containing the gif in the current row
-        // $("#row-" + gifdNo + rowNo).append("<div class='card border-0 text-warning' style='width: 18rem; " +
-        //     "background-color: transparent;' id=" + gifID +"></div>");
         $("#row-" + gifdNo + rowNo).append("<div class='card border-0 text-warning' " +
              "style='background-color: transparent;' id=" + gifID +"></div>");
         //only get the portion of the url attribute up to the "?" in the string
         let gifStill = gif.images.downsized_still.url.substring(0, gif.images.downsized_still.url.indexOf("?"));
         let gifURL = gif.images.downsized_large.url;
         let gifrating = gif.rating;
-        //append image and text to the bootstrap card
-        $("#" + gifID).append("<div class='embed-responsive embed-responsive-16by9'");
+        //create a string which includes the html for the image and text
         let appendImg = "<img id='" + gifID + "' src='" + gifStill + 
             "' data-still='" + gifStill + "' data-animate='" + gifURL +
-            "' data-state='still' class='gif card-img-bottom img-fluid'>"
+            "' data-state='still' class='gif card-img-bottom'" +
+            " style='height: 150px; width: auto;'>"
         let appendText = "<p class='card-text'>Rating: " + gifrating + "</p>"
-        $(".div" + i).append("<div class='card-body'>" + appendText + appendImg +"</div>");
-        // $("#" + gifID).append("<div class='card-body'>" + appendText + appendImg +"</div>");
-        // $("#" + gifID).append("<img id='" + gifID + "' src='" + gifStill + 
-        //     "' data-still='" + gifStill + "' data-animate='" + gifURL + 
-        //     "' data-state='still' class='gif'>");
+        //add the image and text to the bootstrap card
+        $("#" + gifID).append("<div class='card-body'>" + appendText + appendImg +"</div>");
     })
 }
 
