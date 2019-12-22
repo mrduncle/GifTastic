@@ -10,26 +10,36 @@ let apiKey = "a6Xd0NCgmNJHxMbKQdk1XP5N0YZkHBrv";
 
 
 function displayGifs(gifObject) {
-    let gifArray = gifObject.data;
+    let gifArray = gifObject.data; //first level of the object used to access all other information about the object
     let gifRiver = searchParam.split(" ");
     let rowNo;
     gifdNo += 1;
     gifRiver = gifRiver.join("-");
+    //add a heading for the new river clicked on to display its gifs
     $("#river-gifs-container").append("<h3 style='color:white'>" + searchParam + "</h3>");
     
     //create a new row for each river
     $.each(gifArray, function(i, gif){
         let gifID = gifRiver + i;
+        //create a new row every third gif
         if ((i) % 3 === 0) {
             rowNo = Math.floor(i / 3);
             $("#river-gifs-container").append("<div class='row justify-content-start' id='row-" + gifdNo + rowNo + "'></div>");
         }
-        $("#row-" + gifdNo + rowNo).append("<div class='col-md-4 pl-1 mt-1' id=" + gifID +"></div>");
+        $("#row-" + gifdNo + rowNo).append("<div class='card border-0 text-warning' " +
+             "style='background-color: transparent;' id=" + gifID +"></div>");
+        //only get the portion of the url attribute up to the "?" in the string
         let gifStill = gif.images.downsized_still.url.substring(0, gif.images.downsized_still.url.indexOf("?"));
         let gifURL = gif.images.downsized_large.url;
-        $("#" + gifID).append("<img id='" + gifID + "' src='" + gifStill + 
-            "' data-still='" + gifStill + "' data-animate='" + gifURL + 
-            "' data-state='still' class='gif'>");
+        let gifrating = gif.rating;
+        //create a string which includes the html for the image and text
+        let appendImg = "<img id='" + gifID + "' src='" + gifStill + 
+            "' data-still='" + gifStill + "' data-animate='" + gifURL +
+            "' data-state='still' class='gif card-img-bottom'" +
+            " style='height: 150px; width: auto;'>"
+        let appendText = "<p class='card-text'>Rating: " + gifrating + "</p>"
+        //add the image and text to the bootstrap card
+        $("#" + gifID).append("<div class='card-body'>" + appendText + appendImg +"</div>");
     })
 }
 
