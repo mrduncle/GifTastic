@@ -28,18 +28,22 @@ function displayGifs(gifObject) {
         }
         // $("#row-" + gifdNo + rowNo).append("<div class='col-md-4 pl-1 mt-1' id=" + gifID +"></div>");
         //append a card containing the gif in the current row
-        $("#row-" + gifdNo + rowNo).append("<div class='card border-0 text-warning' style='width: 18rem; " +
-            "background-color: transparent;' id=" + gifID +"></div>");
+        // $("#row-" + gifdNo + rowNo).append("<div class='card border-0 text-warning' style='width: 18rem; " +
+        //     "background-color: transparent;' id=" + gifID +"></div>");
+        $("#row-" + gifdNo + rowNo).append("<div class='card border-0 text-warning' " +
+             "style='background-color: transparent;' id=" + gifID +"></div>");
         //only get the portion of the url attribute up to the "?" in the string
         let gifStill = gif.images.downsized_still.url.substring(0, gif.images.downsized_still.url.indexOf("?"));
         let gifURL = gif.images.downsized_large.url;
         let gifrating = gif.rating;
         //append image and text to the bootstrap card
+        $("#" + gifID).append("<div class='embed-responsive embed-responsive-16by9'");
         let appendImg = "<img id='" + gifID + "' src='" + gifStill + 
             "' data-still='" + gifStill + "' data-animate='" + gifURL +
-            "' data-state='still' class='gif card-img-bottom'>"
+            "' data-state='still' class='gif card-img-bottom img-fluid'>"
         let appendText = "<p class='card-text'>Rating: " + gifrating + "</p>"
-        $("#" + gifID).append("<div class='card-body'>" + appendText + appendImg +"</div>");
+        $(".div" + i).append("<div class='card-body'>" + appendText + appendImg +"</div>");
+        // $("#" + gifID).append("<div class='card-body'>" + appendText + appendImg +"</div>");
         // $("#" + gifID).append("<img id='" + gifID + "' src='" + gifStill + 
         //     "' data-still='" + gifStill + "' data-animate='" + gifURL + 
         //     "' data-state='still' class='gif'>");
