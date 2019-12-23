@@ -1,7 +1,7 @@
 
 //@ts-check
 
-let rivers = ["Zambezi River", "Colorado River", "Angel Falls", "Yellowstone River"];
+let rivers = ["Zambezi River", "Colorado River", "Victoria Falls", "Yellowstone River"];
 let gifdRivers = [];
 let gifdNo = 0;
 let searchParam;
@@ -16,16 +16,17 @@ function displayGifs(gifObject) {
     gifdNo += 1;
     gifRiver = gifRiver.join("-");
     //add a heading for the new river clicked on to display its gifs
-    $("#river-gifs-container").append("<h3 style='color:white'>" + searchParam + "</h3>");
+    $("#river-gifs-container").append("<h3 style='color: green;'>" + searchParam + "</h3>");
     
     //create a new row for each river
     $.each(gifArray, function(i, gif){
         let gifID = gifRiver + i;
         //create a new row every third gif
-        if ((i) % 3 === 0) {
-            rowNo = Math.floor(i / 3);
-            $("#river-gifs-container").append("<div class='row justify-content-start' id='row-" + gifdNo + rowNo + "'></div>");
+        if ((i) % 5 === 0) {
+            rowNo = Math.floor(i / 5);
+            $("#river-gifs-container").append("<div class='row justify-content-start ml-1' id='row-" + gifdNo + rowNo + "'></div>");
         }
+
         $("#row-" + gifdNo + rowNo).append("<div class='card border-0 text-warning' " +
              "style='background-color: transparent;' id=" + gifID +"></div>");
         //only get the portion of the url attribute up to the "?" in the string
@@ -107,7 +108,8 @@ $(document).on("click", ".button, #button", function(event) {
     else if ($(this).attr(".close-modal")) {
         //pass
     }
-    //if the button pushed was not to close the modal, submit button then it was to retrieve gifs
+    //if the button pushed was not to close the modal or the submit button then it was to retrieve gifs
+    //clicking on the river buttons is handled below at $("#river-gifs-container").on("click"....)
     else {
         searchParam = $(this).attr("river-name");
         console.log(searchParam);
@@ -117,7 +119,6 @@ $(document).on("click", ".button, #button", function(event) {
 
 //change gifs between still and animated
 $("#river-gifs-container").on("click", ".gif", function() {
-    // console.log($(this).attr("src"));
     if ($(this).attr("data-state") === "animate") {
         $(this).attr("data-state", "still"); //turn the data-state property for gifs to still
         $(this).attr("src", $(this).attr("data-still"))
@@ -131,7 +132,6 @@ $("#river-gifs-container").on("click", ".gif", function() {
         $(this).attr("src", $(this).attr("data-animate"));
     }
 })
-
 
 //display the original buttons from the rivers array
 createButtons();
